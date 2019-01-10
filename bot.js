@@ -638,10 +638,10 @@ client.on('message', message => {
   ` + '`' + prefix + 'setAvatar` - **لتغيير صورة البوت**' + `
   ` + '`' + prefix + 'setStatus` - **لتغيير حالة البوت**' + `
  
- Customer: <@473452211641516032>
+ Customer: <@336584648518008832>
  
  **جميع الحقوق محفوظة ألى متجر بتر ستور
- BetterStore..**
+ Jinn Sever..**
  
 https://discord.gg/wKc5NAZ`
   if(message.content === prefix + 'help') {
