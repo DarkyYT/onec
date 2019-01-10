@@ -7,10 +7,6 @@ const config = process.env.CONFIG
 
 const prefix = process.env.PREFIX
 const token = process.env.TOKEN
-const ids = process.env.IDS || ["449313863494664214", "228401267263668224", '473452211641516032']
-const private = process.env.PRIVATE
-const regDate = process.env.REGDATE
-const sub = process.env.SUB
 
 const client = new Discord.Client({ disableEveryone: true});
 
@@ -29,7 +25,6 @@ let cmds = {
   forceskip: { cmd: 'forceskip', a: ['fs', 'fskip'] },
   skipto: { cmd: 'skipto', a: ['st'] },
   nowplaying: { cmd: 'nowplaying', a: ['np'] },
-  mysub: { cmd: 'mysub', a: ['subscription', 'sub'] }
 };
 
 Object.keys(cmds).forEach(key => {
@@ -77,17 +72,7 @@ client.on('message', async msg => {
   if(!msg.content.startsWith(prefix)) return undefined;
 
 
-  if(ids.length > 0 && config.private){
 
-    let usersArray = Array();
-
-    ids.forEach(id => {
-    let user = client.users.get(id)
-    if(user) usersArray.push(user)
-})
-    return msg.reply(`Only bot owner(s) can use this bot [${usersArray.map(user => user.tag).join(', ')}]`)
-
-  }
 
 
   const args = msg.content.slice(prefix.length).trim().split(/ +/g);
@@ -99,42 +84,7 @@ const command = args.shift().toLowerCase();
 
     let s;
 
-    let Ms = sub.split(' ')[1] == 'month' ? sub.split(' ')[0] * 30 : 1;
-
-    if(sub.split(' ')[1] == 'month') s = 1000 * 60 * 60 * 24 * Ms;
-
-    if(s - (Date.now() - regDate) <= 0 && cmd != undefined) return msg.reply('Bot Subscription is end, you can\'t use bot.')
-
-    if(cmd == 'mysub') {
-
-      moment.locale('en-US')
-
-      let subb = sub.split(' ');
-
-      let count = parseInt(subb.slice(0));
-      let dur = subb.slice(1);
-
-      let mss;
-
-      let moMs = dur == 'month' ? count * 30 : 1;
-
-      if(dur == 'month') mss = 1000 * 60 * 60 * 24 * moMs;
-
-
-      let expDate = moment(regDate).add(count, dur);
-      expDate = dateformat(expDate.toDate(), 'yyyy/mm/dd"-"hh:MM')
-      let time = ms(mss - (Date.now() - regDate));
-
-      let usersArray = Array();
-
-      config.ids.forEach(id => {
-      let user = client.users.get(id)
-      if(user) usersArray.push(user)
-  })
-
-      msg.channel.send(`**Subscription Expiry Date : ${expDate}\nYour Subscription will end after : ${time.months ? time.months : '0'} Months, ${time.days} Days, ${time.hours} Hours and ${time.minutes} Minutes\nRegistered For : ${usersArray.map(user => user.tag).join(', ')}**`)
-
-}
+   
 
     if(cmd === 'play') {
         const voiceChannel = msg.member.voiceChannel;
