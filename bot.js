@@ -57,7 +57,7 @@ client.on('ready', () => {
     console.log(`Customer Number 1`);
     console.log(`Guilds: ${client.guilds.size}`);
     console.log(`Users: ${client.users.size}`);
-    client.user.setActivity(`Type ${prefix}help`,{type: 'Playing'});
+    client.user.setGame(`Type ${prefix}help`,{type: 'Playing'});
 });
 
 client.on('message', async msg => {
